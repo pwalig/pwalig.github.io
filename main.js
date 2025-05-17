@@ -1,6 +1,11 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 
+
+function radians(degrees) {
+    return degrees * 0.0174532925;
+}
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
@@ -20,8 +25,10 @@ for (let i = 1; i < 5; i++) {
     scene.add( cube );
 }
 
+// cone
 var cone = new THREE.Object3D();
-new GLTFLoader().load('public/models/Cone.glb', (gltf) => {
+const loader = new GLTFLoader().setPath('public/models/');
+loader.load('Cone.glb', (gltf) => {
     gltf.scene.traverse(function (child) {
         if (child.isMesh) {
             child.castShadow = true;
@@ -38,15 +45,39 @@ new GLTFLoader().load('public/models/Cone.glb', (gltf) => {
     scene.add( duplicateCone );
 })
 
-new GLTFLoader().load('public/models/Wall.glb', (gltf) => {
-    gltf.scene.traverse(function (child) {
-        if (child.isMesh) {
-            // child.castShadow = true;
-            child.receiveShadow = true;
-        }
-    });
-    scene.add(gltf.scene);
-})
+// wall
+const ySpaceScale = 10;
+const walls = new THREE.Object3D();
+{
+    const geometry = new THREE.PlaneGeometry( 12, 1 );
+    const material = new THREE.MeshPhongMaterial( { color: 0x666666 } );
+    const wall = new THREE.Mesh( geometry, material );
+    wall.receiveShadow = true;
+    wall.position.set(-3, 0, -3);
+    walls.add(wall);
+}
+{
+    const geometry = new THREE.PlaneGeometry( 6, 1 );
+    const material = new THREE.MeshPhongMaterial( { color: 0x666666 } );
+    const wall = new THREE.Mesh( geometry, material );
+    wall.receiveShadow = true;
+    wall.position.set(3, 0, 0);
+    wall.rotateY(radians(-90));
+    walls.add(wall);
+}
+{
+    const geometry = new THREE.PlaneGeometry( 12, 6 );
+    const material = new THREE.MeshPhongMaterial( { color: 0x666666 } );
+    const wall = new THREE.Mesh( geometry, material );
+    wall.receiveShadow = true;
+    wall.position.set(-3, -0.5, 0);
+    wall.rotateX(radians(-90));
+    walls.add(wall);
+}
+walls.position.set(0, -ySpaceScale / 2 + 2.5, 0);
+walls.rotateY(radians(15));
+walls.scale.set(1, ySpaceScale + 7, 1);
+scene.add( walls );
 
 const sunLight = new THREE.DirectionalLight(0xFFFFFF, 3);
 sunLight.position.set(-5, 5, 5);
@@ -60,7 +91,6 @@ scene.add( sunLight );
 const ambientLight = new THREE.AmbientLight(0xDDDDFF, 0.2);
 scene.add( ambientLight );
 
-const ySpaceScale = 10;
 camera.position.y = 0;
 camera.position.z = 2;
 document.body.onscroll = () => {
