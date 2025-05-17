@@ -21,7 +21,7 @@ for (let i = 1; i < 5; i++) {
 }
 
 var cone = new THREE.Object3D();
-new GLTFLoader().load('res/Cone.glb', (gltf) => {
+new GLTFLoader().load('public/models/Cone.glb', (gltf) => {
     gltf.scene.traverse(function (child) {
         if (child.isMesh) {
             child.castShadow = true;
@@ -38,7 +38,7 @@ new GLTFLoader().load('res/Cone.glb', (gltf) => {
     scene.add( duplicateCone );
 })
 
-new GLTFLoader().load('res/Wall.glb', (gltf) => {
+new GLTFLoader().load('public/models/Wall.glb', (gltf) => {
     gltf.scene.traverse(function (child) {
         if (child.isMesh) {
             // child.castShadow = true;
