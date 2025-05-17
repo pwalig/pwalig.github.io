@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 
-
 function radians(degrees) {
     return degrees * 0.0174532925;
 }
@@ -110,10 +109,16 @@ function render() {
 }
 
 function mainLoop() {
-    sunLight.position.x = sunLight.position.x + 0.01;
-    if (sunLight.position.x > 5) sunLight.position.x = -5;
+    const date = new Date();
+    const sunpos = window.SunCalc.getPosition(date, 52.43861988511611, 16.868680971938506)
+    sunLight.position.z = Math.cos(sunpos.altitude) * Math.cos(sunpos.azimuth);
+    sunLight.position.x = -Math.cos(sunpos.altitude) * Math.sin(sunpos.azimuth);
+    sunLight.position.y = Math.sin(sunpos.altitude);
+    sunLight.intensity = Math.max(0, sunLight.position.y) * 3;
+
     cone.rotation.y += 0.02;
     cone.rotation.z += 0.02;
+
     render();
 }
 
