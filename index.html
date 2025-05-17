@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Paweł Waligóra</title>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>My first three.js app</title>
+    <style>
+      body { margin: 0; }
+    </style>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.176.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/"
+        }
+    }
+    </script>
     </head>
     <body>
-        <h1>Page</h1>
-        <p>Hello World!</p>
+        <script type="module" src="/main.js"></script>
     </body>
-</html> 
+</html>
