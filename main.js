@@ -1,43 +1,90 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-const canvas = document.querySelector('#c');
-const renderer = new THREE.WebGLRenderer({ canvas });
+const canvas = document.querySelector('canvas');
+const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
+renderer.shadowMap.enabled = true;
+renderer.setSize(window.innerWidth, window.innerHeight)
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshPhongMaterial({color: 0x44aa88});
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
-
-const light = new THREE.DirectionalLight(0xFFFFFF, 3);
-light.position.set(-1, 2, 4);
-scene.add( light );
-
-camera.position.z = 5;
-
-function resizeRendererToDisplaySize(renderer) {
-    const canvas = renderer.domElement;
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-    const needResize = canvas.width !== width || canvas.height !== height;
-    if (needResize) {
-        renderer.setSize(width, height, false);
-    }
-    return needResize;
+for (let i = 1; i < 5; i++) {
+    const geometry = new THREE.SphereGeometry( 0.5 );
+    const material = new THREE.MeshPhongMaterial({color: 0x44aa88});
+    const cube = new THREE.Mesh( geometry, material );
+    cube.castShadow = true;
+    cube.position.set(0, -i * 2, 0);
+    cube.rotation.x += 1;
+    cube.rotation.y += 1;
+    scene.add( cube );
 }
 
-function render() {
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+var cone = new THREE.Object3D();
+new GLTFLoader().load('res/Cone.glb', (gltf) => {
+    gltf.scene.traverse(function (child) {
+        if (child.isMesh) {
+            child.castShadow = true;
+            // child.recieveShadow = true;
+            cone = child;
+            cone.position.set(0, -0.2, 0);
+        }
+    });
+    scene.add(gltf.scene);
 
-    if (resizeRendererToDisplaySize(renderer)) {
-        const canvas = renderer.domElement;
-        camera.aspect = canvas.clientWidth / canvas.clientHeight;
-        camera.updateProjectionMatrix();
-    }
+    var duplicateCone = cone.clone();
+    duplicateCone.position.set( 0.2, -10.56, -0.3 );
+    duplicateCone.rotation.y = -1;
+    scene.add( duplicateCone );
+})
+
+new GLTFLoader().load('res/Wall.glb', (gltf) => {
+    gltf.scene.traverse(function (child) {
+        if (child.isMesh) {
+            // child.castShadow = true;
+            child.receiveShadow = true;
+        }
+    });
+    scene.add(gltf.scene);
+})
+
+const sunLight = new THREE.DirectionalLight(0xFFFFFF, 3);
+sunLight.position.set(-5, 5, 5);
+sunLight.castShadow = true;
+sunLight.shadow.mapSize.height = 2048;
+sunLight.shadow.mapSize.width = 2048;
+sunLight.shadow.camera.top = 1;
+sunLight.shadow.camera.bottom = -9;
+scene.add( sunLight );
+
+const ambientLight = new THREE.AmbientLight(0xDDDDFF, 0.2);
+scene.add( ambientLight );
+
+const ySpaceScale = 10;
+camera.position.y = 0;
+camera.position.z = 2;
+document.body.onscroll = () => {
+    camera.position.y = -((document.documentElement.scrollTop || document.body.scrollTop) /
+    ((document.documentElement.scrollHeight || document.body.scrollHeight) - document.documentElement.clientHeight)) * ySpaceScale;
+}
+
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight
+    camera.updateProjectionMatrix()
+    renderer.setSize(window.innerWidth, window.innerHeight)
+}
+window.addEventListener('resize', onWindowResize, false)
+
+function render() {
     renderer.render( scene, camera );
 }
 
-renderer.setAnimationLoop( render );
+function mainLoop() {
+    sunLight.position.x = sunLight.position.x + 0.01;
+    if (sunLight.position.x > 5) sunLight.position.x = -5;
+    cone.rotation.y += 0.02;
+    cone.rotation.z += 0.02;
+    render();
+}
+
+renderer.setAnimationLoop( mainLoop );
