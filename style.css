@@ -2,20 +2,44 @@ html, body {
    margin: 0;
    height: 100%;
 }
-#c {
+canvas {
    width: 100%;
    height: 100%;
    display: block;
    position: fixed;
 }
-#content{
+main {
     padding: 12px;
     position: absolute;
-    color: brown;
     left:0px;
     top:0px;
+    color: white;
+    font-family: monospace;
+    justify-content: center;
+    text-align: center;
+    font-size: large;
 }
 
-#content p{
-    font-size: large;
+main section {
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.scroll-hint{
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+}
+
+main nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+main nav ul {
+    display: flex;
+    list-style-type: none;
+}
+main nav ul li {
+    margin: 0 15px;
 }
