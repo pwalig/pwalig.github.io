@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Paweł Waligóra</title>
+    <link rel="icon" type="image/x-icon" href="public/images/icon.png">
     <link rel="stylesheet" href="style.css">
     <script type="importmap">
     {
@@ -20,9 +21,9 @@
       <nav>
         <p>Paweł Waligóra</p>
         <ul>
-          <li><a href="#about">#about</a></li>
-          <li><a href="#skills">#tech stack</a></li>
-          <li><a href="#projects">#projects</a></li>
+          <li><a class="link" href="#about">#about</a></li>
+          <li><a class="link" href="#skills">#tech stack</a></li>
+          <li><a class="link" href="#projects">#projects</a></li>
         </ul>
       </nav>
       <section>
@@ -33,17 +34,86 @@
 
       <section id="about">
         <h2>About me</h2>
-        <p>3rd year Computer Science Student at Poznan University of Technology...</p>
+        <p>
+          Graphics Programmer, Artist and Computer Science Student at Poznan University of Technology.
+        </p>
+        <p>
+          I love writing programs that draw triangles onto the screen.
+        </p>
+        <div class="list">
+          <div class="list-elem"><a class="link" href="https://www.linkedin.com/in/pwalig/">LinkedIn</a></div>
+          <div class="list-elem"><a class="link" href="https://github.com/pwalig">GitHub</a></div>
+          <div class="list-elem"><a class="link" href="https://p-walig.itch.io">itch.io</a></div>
+          <div class="list-elem"><a class="link" href="https://www.youtube.com/@p_walig">YouTube</a></div>
+          <div class="list-elem"><a class="link" href="https://www.instagram.com/p_walig/">instagram</a></div>
+          <div class="list-elem"><a class="link" href="https://www.artstation.com/p_walig">Artstation</a></div>
+        </div>
       </section>
 
       <section id="skills">
         <h2>Tech Stack</h2>
-        <p>I write in C++, know ...</p>
+        <p>The stuff know</p>
+        <div class = "content">
+          <div class="list">
+            <h3>Languages</h3>
+            <div class="list-elem">C++</div>
+            <div class="list-elem">Zig</div>
+            <div class="list-elem">C</div>
+            <div class="list-elem">Rust</div>
+            <div class="list-elem">Java</div>
+            <div class="list-elem">Python</div>
+            <div class="list-elem">Kotlin</div>
+            <div class="list-elem">JavaScript</div>
+            <div class="list-elem">C#</div>
+          </div>
+          <div class="list">
+            <h3>Graphics / GPU Compute</h3>
+            <div class="list-elem">OpenGL</div>
+            <div class="list-elem">Vulkan</div>
+            <div class="list-elem">Three.js</div>
+            <div class="list-elem">CUDA</div>
+          </div>
+          <div class="list">
+            <h3>Tools</h3>
+            <div class="list-elem">Unity</div>
+            <div class="list-elem">Substance Painter</div>
+            <div class="list-elem">Blender</div>
+            <div class="list-elem">Krita</div>
+          </div>
+        </div>
       </section>
 
-      <section id="projects">
-        <h2>Projects</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id quo quis asperiores iste deserunt reiciendis cupiditate provident eius fugit facere, itaque commodi illum tempora, officia deleniti laboriosam dolor consequuntur velit?</p>
+      <div id="projects">Projects</div>
+      <section id="software-rasterizer">
+        <h2>Software Rasterizer</h2>
+        <p>Parallel software rasterizer written in C++.</p>
+        <div class="content">
+          <div class="text">
+            <h3>Performance</h3>
+            <p>Scene on the right (~35k triangles) renders in 60fps at 1920 x 1080 resolution on AMD Ryzen 5 3600 CPU.</p>
+            <h3>Features:</h3>
+            <ul>
+              <li>rendering with or without depth buffer</li>
+              <li>drawing with or without index buffer</li>
+              <li>programmable shaders (at compile time with C++ templates)</li>
+              <li>multithreaded (each thread renders one vertical slice of the image)</li>
+              <li>ability to specify viewport dimensions and offset (to render to only part of the image)</li>
+              <li>loading meshes and textures</li>
+              <li>triangle clipping (against z-near only)</li>
+              <li>deffered rendering is possible and accelerated with specialized method for screen quad rendering</li>
+              <li>rendering to screen or texture</li>
+            </ul>
+            <p>
+              <a class="link" href="https:github.com/pwalig/rasterizer">GitHub repository</a>
+            </p>
+          </div>
+          <img src="public/images/Suzannes-261f3ae.png">
+        </div>
+      </section>
+      <section>
+        <h2>Backrooms FPS</h2>
+        <p>3D FPS game made with OpenGL</p>
+        <div class="video"><iframe src="https://www.youtube.com/embed/43q9ODvjh14?si=bnmjV50ARmb1l4Gi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
       </section>
     </main>
     <script type="module" src="/public/modules/suncalc/suncalc.js"></script>

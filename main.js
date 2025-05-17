@@ -13,12 +13,15 @@ const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
 renderer.shadowMap.enabled = true;
 renderer.setSize(window.innerWidth, window.innerHeight)
 
-for (let i = 1; i < 5; i++) {
+const ySpaceScale = 20;
+
+// spheres
+for (let i = 2; i < ySpaceScale - 2; i += 2) {
     const geometry = new THREE.SphereGeometry( 0.5 );
     const material = new THREE.MeshPhongMaterial({color: 0x44aa88});
     const cube = new THREE.Mesh( geometry, material );
     cube.castShadow = true;
-    cube.position.set(0, -i * 2, 0);
+    cube.position.set(0, -i, 0);
     cube.rotation.x += 1;
     cube.rotation.y += 1;
     scene.add( cube );
@@ -39,13 +42,12 @@ loader.load('Cone.glb', (gltf) => {
     scene.add(gltf.scene);
 
     var duplicateCone = cone.clone();
-    duplicateCone.position.set( 0.2, -10.56, -0.3 );
+    duplicateCone.position.set( 0.2, -ySpaceScale - 0.56, -0.3 );
     duplicateCone.rotation.y = -1;
     scene.add( duplicateCone );
 })
 
 // wall
-const ySpaceScale = 10;
 const walls = new THREE.Object3D();
 {
     const geometry = new THREE.PlaneGeometry( 12, 1 );
@@ -84,7 +86,7 @@ sunLight.castShadow = true;
 sunLight.shadow.mapSize.height = 2048;
 sunLight.shadow.mapSize.width = 2048;
 sunLight.shadow.camera.top = 1;
-sunLight.shadow.camera.bottom = -9;
+sunLight.shadow.camera.bottom = 1 - ySpaceScale;
 scene.add( sunLight );
 
 const ambientLight = new THREE.AmbientLight(0xDDDDFF, 0.2);
@@ -92,15 +94,20 @@ scene.add( ambientLight );
 
 camera.position.y = 0;
 camera.position.z = 2;
-document.body.onscroll = () => {
+function setScroll(){
     camera.position.y = -((document.documentElement.scrollTop || document.body.scrollTop) /
     ((document.documentElement.scrollHeight || document.body.scrollHeight) - document.documentElement.clientHeight)) * ySpaceScale;
 }
+document.body.onscroll = () => {
+    setScroll();
+}
+setScroll();
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
     renderer.setSize(window.innerWidth, window.innerHeight)
+    setScroll();
 }
 window.addEventListener('resize', onWindowResize, false)
 
@@ -108,9 +115,15 @@ function render() {
     renderer.render( scene, camera );
 }
 
+var latitude = 52.43861988511611;
+var longitude = 16.868680971938506;
+navigator.geolocation.getCurrentPosition((position) => {
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+})
 function mainLoop() {
     const date = new Date();
-    const sunpos = window.SunCalc.getPosition(date, 52.43861988511611, 16.868680971938506)
+    const sunpos = window.SunCalc.getPosition(date, latitude, longitude);
     sunLight.position.z = Math.cos(sunpos.altitude) * Math.cos(sunpos.azimuth);
     sunLight.position.x = -Math.cos(sunpos.altitude) * Math.sin(sunpos.azimuth);
     sunLight.position.y = Math.sin(sunpos.altitude);
