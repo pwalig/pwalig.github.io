@@ -12,6 +12,7 @@ const canvas = document.querySelector('canvas');
 const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
 renderer.shadowMap.enabled = true;
 renderer.setSize(window.innerWidth, window.innerHeight)
+scene.background = new THREE.Color(0x111111)
 
 const ySpaceScale = 20;
 
@@ -92,30 +93,47 @@ scene.add( sunLight );
 const ambientLight = new THREE.AmbientLight(0xDDDDFF, 0.2);
 scene.add( ambientLight );
 
-camera.position.y = 0;
-camera.position.z = 2;
-function setScroll(){
-    camera.position.y = -((document.documentElement.scrollTop || document.body.scrollTop) /
+var yPosition = 0
+var centerAngle = false
+var goalCamAngle = new THREE.Vector2(0, 0)
+var camAngle = new THREE.Vector2(0, 0)
+
+function onMouseScroll(){
+    yPosition = -((document.documentElement.scrollTop || document.body.scrollTop) /
     ((document.documentElement.scrollHeight || document.body.scrollHeight) - document.documentElement.clientHeight)) * ySpaceScale;
 }
 document.body.onscroll = () => {
-    setScroll();
+    onMouseScroll();
 }
-setScroll();
+onMouseScroll()
 
-document.addEventListener('mousemove', function(event) {
-    setScroll()
-    let y = camera.position.y
-    camera.position.x = -event.clientX / window.innerWidth + 0.5
-    camera.position.y += event.clientY / window.innerHeight - 0.5
-    camera.lookAt(new THREE.Vector3(0, y, 0))
+document.addEventListener('mousemove', (event) => {
+    if (centerAngle === false) {
+        goalCamAngle.x = event.clientX / window.innerHeight - 0.5
+        goalCamAngle.y = event.clientY / window.innerHeight - 0.5
+    }
 });
+
+let links = document.getElementsByClassName("link")
+Array.from(links).forEach((link) => {
+    link.onmouseover = () => {
+        centerAngle = true
+        goalCamAngle.x = 0
+        goalCamAngle.y = 0
+        console.log(centerAngle)
+    }
+    link.onmouseleave = () => {
+        centerAngle = false
+        console.log(centerAngle)
+    }
+    console.log(link)
+})
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
     renderer.setSize(window.innerWidth, window.innerHeight)
-    setScroll();
+    onMouseScroll();
 }
 window.addEventListener('resize', onWindowResize, false)
 
@@ -125,20 +143,40 @@ function render() {
 
 var latitude = 52.43861988511611;
 var longitude = 16.868680971938506;
-navigator.geolocation.getCurrentPosition((position) => {
-    latitude = position.coords.latitude;
-    longitude = position.coords.longitude;
-})
+// navigator.geolocation.getCurrentPosition((position) => {
+//     latitude = position.coords.latitude;
+//     longitude = position.coords.longitude;
+// })
+const clock = new THREE.Clock()
+
 function mainLoop() {
-    const date = new Date();
+    const delta = clock.getDelta()
+
+    const date = new Date(2025, 4, 1, 13)
     const sunpos = window.SunCalc.getPosition(date, latitude, longitude);
     sunLight.position.z = Math.cos(sunpos.altitude) * Math.cos(sunpos.azimuth);
     sunLight.position.x = -Math.cos(sunpos.altitude) * Math.sin(sunpos.azimuth);
     sunLight.position.y = Math.sin(sunpos.altitude);
     sunLight.intensity = Math.max(0, sunLight.position.y) * 3;
 
-    cone.rotation.y += 0.02;
-    cone.rotation.z += 0.02;
+    cone.rotation.y += 2 * delta;
+    cone.rotation.z += 2 * delta;
+    let goal = goalCamAngle.clone()
+    if (centerAngle) goal = new THREE.Vector2(0, 0)
+    camAngle.add(goal.sub(camAngle).multiplyScalar(delta * 3))
+    let camOffset = new THREE.Vector3(0, 0, 2)
+    camOffset.applyAxisAngle(
+        new THREE.Vector3(-2, 0, 0),
+        camAngle.y
+    )
+    camOffset.applyAxisAngle(
+        new THREE.Vector3(0, -2, 0),
+        camAngle.x
+    )
+    camera.position.x = camOffset.x
+    camera.position.y = yPosition + camOffset.y
+    camera.position.z = camOffset.z
+    camera.lookAt(new THREE.Vector3(0, yPosition, 0))
 
     render();
 }
