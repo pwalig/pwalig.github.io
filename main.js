@@ -103,6 +103,14 @@ document.body.onscroll = () => {
 }
 setScroll();
 
+document.addEventListener('mousemove', function(event) {
+    setScroll()
+    let y = camera.position.y
+    camera.position.x = -event.clientX / window.innerWidth + 0.5
+    camera.position.y += event.clientY / window.innerHeight - 0.5
+    camera.lookAt(new THREE.Vector3(0, y, 0))
+});
+
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
