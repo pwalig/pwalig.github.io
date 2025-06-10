@@ -1,9 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
-
-function radians(degrees) {
-    return degrees * 0.0174532925;
-}
+import mymath from './public/modules/mymath.js'
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -14,7 +11,7 @@ renderer.shadowMap.enabled = true;
 renderer.setSize(window.innerWidth, window.innerHeight)
 scene.background = new THREE.Color(0x111111)
 
-const ySpaceScale = 20;
+const ySpaceScale = 15;
 
 // spheres
 for (let i = 2; i < ySpaceScale - 2; i += 2) {
@@ -64,7 +61,7 @@ const walls = new THREE.Object3D();
     const wall = new THREE.Mesh( geometry, material );
     wall.receiveShadow = true;
     wall.position.set(3, 0, 0);
-    wall.rotateY(radians(-90));
+    wall.rotateY(mymath.radians(-90));
     walls.add(wall);
 }
 {
@@ -73,11 +70,11 @@ const walls = new THREE.Object3D();
     const wall = new THREE.Mesh( geometry, material );
     wall.receiveShadow = true;
     wall.position.set(-3, -0.5, 0);
-    wall.rotateX(radians(-90));
+    wall.rotateX(mymath.radians(-90));
     walls.add(wall);
 }
 walls.position.set(0, -ySpaceScale / 2 + 2.5, 0);
-walls.rotateY(radians(15));
+walls.rotateY(mymath.radians(15));
 walls.scale.set(1, ySpaceScale + 7, 1);
 scene.add( walls );
 
@@ -101,6 +98,9 @@ var camAngle = new THREE.Vector2(0, 0)
 function onMouseScroll(){
     yPosition = -((document.documentElement.scrollTop || document.body.scrollTop) /
     ((document.documentElement.scrollHeight || document.body.scrollHeight) - document.documentElement.clientHeight)) * ySpaceScale;
+    document.getElementById("scroll-hint-root").style.opacity = mymath.clamp(1.0 + yPosition, 0, 1);
+    document.getElementById("greeting").style.opacity = mymath.clamp(1.2 + yPosition, 0, 1);
+    document.getElementById("under-construction").style.opacity = mymath.clamp(2.0 + yPosition, 0, 1);
 }
 document.body.onscroll = () => {
     onMouseScroll();
@@ -108,25 +108,26 @@ document.body.onscroll = () => {
 onMouseScroll()
 
 document.addEventListener('mousemove', (event) => {
-    if (centerAngle === false) {
-        goalCamAngle.x = event.clientX / window.innerHeight - 0.5
+    if (centerAngle) {
+        goalCamAngle.x = 0
+        goalCamAngle.y = 0
+    }
+    else {
+        goalCamAngle.x = event.clientX / window.innerWidth - 0.5
         goalCamAngle.y = event.clientY / window.innerHeight - 0.5
     }
 });
 
-let links = document.getElementsByClassName("link")
+let links = document.getElementsByTagName("nav")
 Array.from(links).forEach((link) => {
     link.onmouseover = () => {
         centerAngle = true
         goalCamAngle.x = 0
         goalCamAngle.y = 0
-        console.log(centerAngle)
     }
     link.onmouseleave = () => {
         centerAngle = false
-        console.log(centerAngle)
     }
-    console.log(link)
 })
 
 function onWindowResize() {
@@ -149,9 +150,12 @@ var longitude = 16.868680971938506;
 // })
 const clock = new THREE.Clock()
 
+// const clamp = (val, min, max) => Math.min(Math.max(val, min), max)
+
 function mainLoop() {
     const delta = clock.getDelta()
 
+    // sun position
     const date = new Date(2025, 4, 1, 13)
     const sunpos = window.SunCalc.getPosition(date, latitude, longitude);
     sunLight.position.z = Math.cos(sunpos.altitude) * Math.cos(sunpos.azimuth);
@@ -159,11 +163,15 @@ function mainLoop() {
     sunLight.position.y = Math.sin(sunpos.altitude);
     sunLight.intensity = Math.max(0, sunLight.position.y) * 3;
 
+    // cone rotation
     cone.rotation.y += 2 * delta;
     cone.rotation.z += 2 * delta;
+    
+    // camera transform
     let goal = goalCamAngle.clone()
-    if (centerAngle) goal = new THREE.Vector2(0, 0)
     camAngle.add(goal.sub(camAngle).multiplyScalar(delta * 3))
+    camAngle.x = mymath.clamp(camAngle.x, -0.5, 0.5)
+    camAngle.y = mymath.clamp(camAngle.y, -0.5, 0.5)
     let camOffset = new THREE.Vector3(0, 0, 2)
     camOffset.applyAxisAngle(
         new THREE.Vector3(-2, 0, 0),
