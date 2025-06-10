@@ -36,7 +36,6 @@ main {
 
 main section {
     min-height: 100vh;
-    padding: 20px;
 }
 
 main section img {
@@ -81,11 +80,28 @@ main nav ul li {
     color: white;
 }
 
+.section-content {
+    text-align: center;
+    padding-top: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+h1 {
+    font-size: 65px;
+    margin: 15px;
+}
+
 #home #greeting {
     position: relative;
     top: 15vh;
     left: 5%;
     width: 30%;
+    text-align: left;
+}
+
+#home #greeting h1 {
+    margin-left: 0;
 }
 
 #home #under-construction {
@@ -93,12 +109,10 @@ main nav ul li {
     text-align: right;
     top: 73vh;
     right: 16%;
+    color: rgba(219, 219, 219, 0.87);
+    rotate: -10deg;
 }
 
-#about #about-me {
-    position: relative;
-    top: 20px;
-}
 #about #about-me .list {
     display: flex;
     align-items: center;
@@ -110,8 +124,7 @@ main nav ul li {
 }
 
 #about #skills {
-    position: relative;
-    top: 30vh;
+    margin-top: 10vh;
 }
 #about #skills .content {
     display: flex;
@@ -122,11 +135,17 @@ main nav ul li {
     flex: 1;
 }
 
-#software-rasterizer .content {
+#projects .section-content .content {
     display: flex;
     justify-content: space-between;
 }
-#software-rasterizer .content .text {
+#projects .section-content .content .text {
     text-align: left;
     padding-right: 15px;
+}
+#contact .content {
+    text-align: left;
+}
+#contact .list-elem {
+    margin: 15px 0;
 }

@@ -98,10 +98,12 @@ var camAngle = new THREE.Vector2(0, 0)
 function onMouseScroll(){
     yPosition = -((document.documentElement.scrollTop || document.body.scrollTop) /
     ((document.documentElement.scrollHeight || document.body.scrollHeight) - document.documentElement.clientHeight)) * ySpaceScale;
+    document.getElementById("scroll-hint-root").style.opacity = mymath.clamp(1.0 + yPosition, 0, 1);
+    document.getElementById("greeting").style.opacity = mymath.clamp(1.2 + yPosition, 0, 1);
+    document.getElementById("under-construction").style.opacity = mymath.clamp(2.0 + yPosition, 0, 1);
 }
 document.body.onscroll = () => {
     onMouseScroll();
-    document.getElementById("scroll-hint-root").style.opacity = mymath.clamp(1.0 + yPosition, 0, 1);
 }
 onMouseScroll()
 
@@ -116,7 +118,7 @@ document.addEventListener('mousemove', (event) => {
     }
 });
 
-let links = document.getElementsByClassName("link")
+let links = document.getElementsByTagName("nav")
 Array.from(links).forEach((link) => {
     link.onmouseover = () => {
         centerAngle = true

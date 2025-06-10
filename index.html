@@ -26,7 +26,7 @@
           <li><a class="link" href="#home">#home</a></li>
           <li><a class="link" href="#about">#about</a></li>
           <li><a class="link" href="#projects">#projects</a></li>
-          <li><a class="link" href="#about">#contact</a></li>
+          <li><a class="link" href="#contact">#contact</a></li>
         </ul>
       </nav>
 
@@ -41,88 +41,137 @@
       </section>
 
       <section id="about">
-        <div id="about-me">
-          <h2>About me</h2>
-          <p>
-            Graphics Programmer, Artist and Computer Science Student at Poznan University of Technology.
-          </p>
-          <p>
-            I love writing programs that draw triangles onto the screen.
-          </p>
-          <div class="list">
-            <div class="list-elem"><a class="link" href="https://www.linkedin.com/in/pwalig/">LinkedIn</a></div>
-            <div class="list-elem"><a class="link" href="https://github.com/pwalig">GitHub</a></div>
-            <div class="list-elem"><a class="link" href="https://p-walig.itch.io">itch.io</a></div>
-            <div class="list-elem"><a class="link" href="https://www.youtube.com/@p_walig">YouTube</a></div>
-            <div class="list-elem"><a class="link" href="https://www.instagram.com/p_walig/">instagram</a></div>
-            <div class="list-elem"><a class="link" href="https://www.artstation.com/p_walig">Artstation</a></div>
+        <div class="section-content">
+          <h1>About</h1>
+          <div id="about-me">
+            <h2>About me</h2>
+            <p>
+              Graphics Programmer, Artist and Computer Science Student at Poznan University of Technology.
+            </p>
+            <p>
+              I love writing programs that draw triangles onto the screen.
+            </p>
+            <div class="list">
+              <div class="list-elem"><a class="link" href="https://www.linkedin.com/in/pwalig/">LinkedIn</a></div>
+              <div class="list-elem"><a class="link" href="https://github.com/pwalig">GitHub</a></div>
+              <div class="list-elem"><a class="link" href="https://p-walig.itch.io">itch.io</a></div>
+              <div class="list-elem"><a class="link" href="https://www.youtube.com/@p_walig">YouTube</a></div>
+              <div class="list-elem"><a class="link" href="https://www.instagram.com/p_walig/">instagram</a></div>
+              <div class="list-elem"><a class="link" href="https://www.artstation.com/p_walig">Artstation</a></div>
+            </div>
           </div>
-        </div>
-        <div id="skills">
-          <h2>Tech Stack</h2>
-          <p>The stuff know</p>
-          <div class = "content">
-            <div class="list">
-              <h3>Languages</h3>
-              <div class="list-elem">C++</div>
-              <div class="list-elem">Zig</div>
-              <div class="list-elem">C</div>
-              <div class="list-elem">Rust</div>
-              <div class="list-elem">Java</div>
-              <div class="list-elem">Python</div>
-              <div class="list-elem">Kotlin</div>
-              <div class="list-elem">JavaScript</div>
-              <div class="list-elem">C#</div>
-            </div>
-            <div class="list">
-              <h3>Graphics / GPU Compute</h3>
-              <div class="list-elem">OpenGL</div>
-              <div class="list-elem">Vulkan</div>
-              <div class="list-elem">Three.js</div>
-              <div class="list-elem">CUDA</div>
-            </div>
-            <div class="list">
-              <h3>Tools</h3>
-              <div class="list-elem">Unity</div>
-              <div class="list-elem">Substance Painter</div>
-              <div class="list-elem">Blender</div>
-              <div class="list-elem">Krita</div>
+          <div id="skills">
+            <h2>Tech Stack</h2>
+            <p>The stuff know</p>
+            <div class = "content">
+              <div class="list">
+                <h3>Languages</h3>
+                <div class="list-elem">C++</div>
+                <div class="list-elem">Zig</div>
+                <div class="list-elem">C</div>
+                <div class="list-elem">Rust</div>
+                <div class="list-elem">Java</div>
+                <div class="list-elem">Python</div>
+                <div class="list-elem">Kotlin</div>
+                <div class="list-elem">JavaScript</div>
+                <div class="list-elem">C#</div>
+              </div>
+              <div class="list">
+                <h3>Programming</h3>
+                <div class="list-elem">git</div>
+                <div class="list-elem">GitHub</div>
+                <div class="list-elem">CMake</div>
+                <div class="list-elem">OOP</div>
+                <div class="list-elem">Data Oriented Design</div>
+              </div>
+              <div class="list">
+                <h3>Graphics / GPU Compute</h3>
+                <div class="list-elem">OpenGL</div>
+                <div class="list-elem">Vulkan</div>
+                <div class="list-elem">Three.js</div>
+                <div class="list-elem">CUDA</div>
+              </div>
+              <div class="list">
+                <h3>Web</h3>
+                <div class="list-elem">HTML</div>
+                <div class="list-elem">CSS</div>
+                <div class="list-elem">JavaScript</div>
+                <div class="list-elem">React</div>
+                <div class="list-elem">Three.js</div>
+              </div>
+              <div class="list">
+                <h3>Tools</h3>
+                <div class="list-elem">Unity</div>
+                <div class="list-elem">Substance Painter</div>
+                <div class="list-elem">Blender</div>
+                <div class="list-elem">Krita</div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <div id="projects">Projects</div>
-      <section id="software-rasterizer">
-        <h2>Software Rasterizer</h2>
-        <p>Parallel software rasterizer written in C++.</p>
-        <div class="content">
-          <div class="text">
-            <h3>Performance</h3>
-            <p>Scene on the right (~35k triangles) renders in 60fps at 1920 x 1080 resolution on AMD Ryzen 5 3600 CPU.</p>
-            <h3>Features:</h3>
-            <ul>
-              <li>rendering with or without depth buffer</li>
-              <li>drawing with or without index buffer</li>
-              <li>programmable shaders (at compile time with C++ templates)</li>
-              <li>multithreaded (each thread renders one vertical slice of the image)</li>
-              <li>ability to specify viewport dimensions and offset (to render to only part of the image)</li>
-              <li>loading meshes and textures</li>
-              <li>triangle clipping (against z-near only)</li>
-              <li>deffered rendering is possible and accelerated with specialized method for screen quad rendering</li>
-              <li>rendering to screen or texture</li>
-            </ul>
-            <p>
-              <a class="link" href="https://github.com/pwalig/rasterizer">GitHub repository</a>
-            </p>
+      <section id="projects">
+        <div class="section-content">
+          <h1>Projects</h1>
+          <div id="software-rasterizer">
+            <h2>Software Rasterizer</h2>
+            <p>Parallel software rasterizer written in C++.</p>
+            <div class="content">
+              <div class="text">
+                <h3>Performance</h3>
+                <p>Scene on the right (~35k triangles) renders in 60fps at 1920 x 1080 resolution on AMD Ryzen 5 3600 CPU.</p>
+                <h3>Features:</h3>
+                <ul>
+                  <li>rendering with or without depth buffer</li>
+                  <li>drawing with or without index buffer</li>
+                  <li>programmable shaders (at compile time with C++ templates)</li>
+                  <li>multithreaded (each thread renders one vertical slice of the image)</li>
+                  <li>ability to specify viewport dimensions and offset (to render to only part of the image)</li>
+                  <li>loading meshes and textures</li>
+                  <li>triangle clipping (against z-near only)</li>
+                  <li>deffered rendering is possible and accelerated with specialized method for screen quad rendering</li>
+                  <li>rendering to screen or texture</li>
+                </ul>
+                <p>
+                  <a class="link" href="https://github.com/pwalig/rasterizer">GitHub repository</a>
+                </p>
+              </div>
+              <img src="public/images/Suzannes-261f3ae.png">
+            </div>
           </div>
-          <img src="public/images/Suzannes-261f3ae.png">
+          <div id="Backrooms-FPS">
+            <h2>Backrooms FPS</h2>
+            <p>3D FPS game made with OpenGL</p>
+            <div class="content">
+              <div class="text">
+                <p>College project made by 2 students initially as computer graphics exercise. We decided to continue development afterwards.</p>
+                <p>Simple fps game where you shoot monsters that randomly appear i a backrooms themed maze.</p>
+                <p>
+                  <a class="link" href="https://github.com/pwalig/3D-FPS-OpenGL">Github repository</a>
+                </p>
+              </div>
+              <img src="public/images/Backrooms-FPS.png">
+            </div>
+          </div>
         </div>
       </section>
-      <section>
-        <h2>Backrooms FPS</h2>
-        <p>3D FPS game made with OpenGL</p>
-        <div class="video"><iframe src="https://www.youtube.com/embed/43q9ODvjh14?si=bnmjV50ARmb1l4Gi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+      <section id="contact">
+        <div class="section-content">
+          <h1>Contact</h1>
+          <div class="content">
+            <h2>Contacts:</h2>
+            <div class="list">
+              <div class="list-elem"><a class="link" href="mailto:pwalig03@gmail.com">Email: pwalig03@gmail.com</a></div>
+              <div class="list-elem"><a class="link" href="https://www.linkedin.com/in/pwalig/">LinkedIn</a></div>
+              <div class="list-elem"><a class="link" href="https://github.com/pwalig">GitHub</a></div>
+              <div class="list-elem"><a class="link" href="https://p-walig.itch.io">itch.io</a></div>
+              <div class="list-elem"><a class="link" href="https://www.youtube.com/@p_walig">YouTube</a></div>
+              <div class="list-elem"><a class="link" href="https://www.instagram.com/p_walig/">instagram</a></div>
+              <div class="list-elem"><a class="link" href="https://www.artstation.com/p_walig">Artstation</a></div>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
     <script type="module" src="/public/modules/suncalc/suncalc.js"></script>
