@@ -11,7 +11,7 @@ renderer.shadowMap.enabled = true;
 renderer.setSize(window.innerWidth, window.innerHeight)
 scene.background = new THREE.Color(0x111111)
 
-const ySpaceScale = 20;
+const ySpaceScale = 15;
 
 // spheres
 for (let i = 2; i < ySpaceScale - 2; i += 2) {
@@ -101,6 +101,7 @@ function onMouseScroll(){
 }
 document.body.onscroll = () => {
     onMouseScroll();
+    document.getElementById("scroll-hint-root").style.opacity = mymath.clamp(1.0 + yPosition, 0, 1);
 }
 onMouseScroll()
 

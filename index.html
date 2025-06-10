@@ -17,68 +17,77 @@
   <body>
     <canvas></canvas>
     <main>
-      <p class="scroll-hint">Scroll to see more...</p>
+      <div id="scroll-hint-root">
+        <p id="scroll-hint">Scroll to see more...</p>
+      </div>
       <nav>
         <p>Paweł Waligóra</p>
         <ul>
+          <li><a class="link" href="#home">#home</a></li>
           <li><a class="link" href="#about">#about</a></li>
-          <li><a class="link" href="#skills">#tech stack</a></li>
           <li><a class="link" href="#projects">#projects</a></li>
+          <li><a class="link" href="#about">#contact</a></li>
         </ul>
       </nav>
-      <section>
-        <h1>Paweł Waligóra</h1>
-        <p>My Personal Web Page</p>
-        <p>Page Under Construction</p>
-      </section>
 
-      <section id="about">
-        <h2>About me</h2>
-        <p>
-          Graphics Programmer, Artist and Computer Science Student at Poznan University of Technology.
-        </p>
-        <p>
-          I love writing programs that draw triangles onto the screen.
-        </p>
-        <div class="list">
-          <div class="list-elem"><a class="link" href="https://www.linkedin.com/in/pwalig/">LinkedIn</a></div>
-          <div class="list-elem"><a class="link" href="https://github.com/pwalig">GitHub</a></div>
-          <div class="list-elem"><a class="link" href="https://p-walig.itch.io">itch.io</a></div>
-          <div class="list-elem"><a class="link" href="https://www.youtube.com/@p_walig">YouTube</a></div>
-          <div class="list-elem"><a class="link" href="https://www.instagram.com/p_walig/">instagram</a></div>
-          <div class="list-elem"><a class="link" href="https://www.artstation.com/p_walig">Artstation</a></div>
+      <section id="home">
+        <div id="greeting">
+          <h1>Paweł Waligóra</h1>
+          <p>Graphics Programmer, Artist and Computer Science Student at Poznan University of Technology.</p>
+        </div>
+        <div id="under-construction">
+          <p>Page Under Construction</p>
         </div>
       </section>
 
-      <section id="skills">
-        <h2>Tech Stack</h2>
-        <p>The stuff know</p>
-        <div class = "content">
+      <section id="about">
+        <div id="about-me">
+          <h2>About me</h2>
+          <p>
+            Graphics Programmer, Artist and Computer Science Student at Poznan University of Technology.
+          </p>
+          <p>
+            I love writing programs that draw triangles onto the screen.
+          </p>
           <div class="list">
-            <h3>Languages</h3>
-            <div class="list-elem">C++</div>
-            <div class="list-elem">Zig</div>
-            <div class="list-elem">C</div>
-            <div class="list-elem">Rust</div>
-            <div class="list-elem">Java</div>
-            <div class="list-elem">Python</div>
-            <div class="list-elem">Kotlin</div>
-            <div class="list-elem">JavaScript</div>
-            <div class="list-elem">C#</div>
+            <div class="list-elem"><a class="link" href="https://www.linkedin.com/in/pwalig/">LinkedIn</a></div>
+            <div class="list-elem"><a class="link" href="https://github.com/pwalig">GitHub</a></div>
+            <div class="list-elem"><a class="link" href="https://p-walig.itch.io">itch.io</a></div>
+            <div class="list-elem"><a class="link" href="https://www.youtube.com/@p_walig">YouTube</a></div>
+            <div class="list-elem"><a class="link" href="https://www.instagram.com/p_walig/">instagram</a></div>
+            <div class="list-elem"><a class="link" href="https://www.artstation.com/p_walig">Artstation</a></div>
           </div>
-          <div class="list">
-            <h3>Graphics / GPU Compute</h3>
-            <div class="list-elem">OpenGL</div>
-            <div class="list-elem">Vulkan</div>
-            <div class="list-elem">Three.js</div>
-            <div class="list-elem">CUDA</div>
-          </div>
-          <div class="list">
-            <h3>Tools</h3>
-            <div class="list-elem">Unity</div>
-            <div class="list-elem">Substance Painter</div>
-            <div class="list-elem">Blender</div>
-            <div class="list-elem">Krita</div>
+        </div>
+        <div id="skills">
+          <h2>Tech Stack</h2>
+          <p>The stuff know</p>
+          <div class = "content">
+            <div class="list">
+              <h3>Languages</h3>
+              <div class="list-elem">C++</div>
+              <div class="list-elem">Zig</div>
+              <div class="list-elem">C</div>
+              <div class="list-elem">Rust</div>
+              <div class="list-elem">Java</div>
+              <div class="list-elem">Python</div>
+              <div class="list-elem">Kotlin</div>
+              <div class="list-elem">JavaScript</div>
+              <div class="list-elem">C#</div>
+            </div>
+            <div class="list">
+              <h3>Graphics / GPU Compute</h3>
+              <div class="list-elem">OpenGL</div>
+              <div class="list-elem">Vulkan</div>
+              <div class="list-elem">Three.js</div>
+              <div class="list-elem">CUDA</div>
+            </div>
+            <div class="list">
+              <h3>Tools</h3>
+              <div class="list-elem">Unity</div>
+              <div class="list-elem">Substance Painter</div>
+              <div class="list-elem">Blender</div>
+              <div class="list-elem">Krita</div>
+            </div>
           </div>
         </div>
       </section>

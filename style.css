@@ -16,7 +16,6 @@ canvas {
 
 main {
     position: absolute;
-    width: 100%;
     left:0px;
     top:0px;
     color: white;
@@ -47,15 +46,24 @@ main section img {
     object-fit: cover;
 }
 
-.scroll-hint{
+#scroll-hint-root {
+    visibility: visible;
     position: fixed;
     bottom: 20px;
     width: 100%;
 }
+#scroll-hint{
+    display: inline;
+    background-color: rgba(0, 0, 0, 0.288);
+}
 
 main nav {
+    width: 100%;
     display: flex;
+    position: fixed;
     justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.288);
+    z-index: 1;
 }
 
 main nav ul {
@@ -73,21 +81,43 @@ main nav ul li {
     color: white;
 }
 
-#about .list {
+#home #greeting {
+    position: relative;
+    top: 15vh;
+    left: 5%;
+    width: 30%;
+}
+
+#home #under-construction {
+    position: absolute;
+    text-align: right;
+    top: 73vh;
+    right: 16%;
+}
+
+#about #about-me {
+    position: relative;
+    top: 20px;
+}
+#about #about-me .list {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#about .list .list-elem {
+#about #about-me .list .list-elem {
     margin: 0 15px;
 }
 
-#skills .content {
+#about #skills {
+    position: relative;
+    top: 30vh;
+}
+#about #skills .content {
     display: flex;
     justify-content: space-evenly;
 }
-#skills .content .list {
+#about #skills .content .list {
     margin: 0 15px;
     flex: 1;
 }
